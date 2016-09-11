@@ -1,0 +1,16 @@
+CREATE TABLE Client
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    LastName VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    MiddleName VARCHAR(255) NOT NULL
+);
+CREATE UNIQUE INDEX id_uindex ON Client (id);
+CREATE TABLE TelephoneNumber
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    Number VARCHAR(19) NOT NULL,
+    Type VARCHAR(12) NOT NULL,
+    Comment VARCHAR(255) NOT NULL
+);
+CREATE UNIQUE INDEX TelephoneNumber_id_uindex ON TelephoneNumber (id);
