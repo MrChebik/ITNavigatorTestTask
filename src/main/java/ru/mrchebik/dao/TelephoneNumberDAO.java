@@ -41,7 +41,6 @@ public class TelephoneNumberDAO extends DAO implements TelephoneNumberRepository
 
     @Override
     public String editNumber(final String type, final String data, final long id) {
-
         begin();
         try {
             getSession().createQuery("update ru.mrchebik.model.TelephoneNumber set " + type + " = :data where id = :id").setString("data", data).setLong("id", id).executeUpdate();

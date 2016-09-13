@@ -1,12 +1,26 @@
 package ru.mrchebik.model;
 
+import org.hibernate.validator.NotNull;
+
+import javax.persistence.*;
+
 /**
  * Created by mrchebik on 05.09.16.
  */
+@Entity
+@Table(name = "TelephoneNumber")
 public class TelephoneNumber {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private long id;
+
+    @Column(nullable = false, length = 19)
     private String number;
+
+    @Column(nullable = false, length = 12)
     private String type;
+
+    @Column(nullable = false)
     private String comment;
 
     public TelephoneNumber() {

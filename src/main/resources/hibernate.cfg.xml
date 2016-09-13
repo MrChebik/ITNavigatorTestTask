@@ -11,7 +11,7 @@
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.show_sql">true</property>
 
-        <mapping resource="Client.hbm.xml" />
-        <mapping resource="TelephoneNumber.hbm.xml" />
+        <mapping class="ru.mrchebik.model.Client" />
+        <mapping class="ru.mrchebik.model.TelephoneNumber" />
     </session-factory>
 </hibernate-configuration>

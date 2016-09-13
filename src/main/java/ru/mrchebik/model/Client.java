@@ -1,12 +1,24 @@
 package ru.mrchebik.model;
 
+import javax.persistence.*;
+
 /**
  * Created by mrchebik on 05.09.16.
  */
+@Entity
+@Table(name = "Client")
 public class Client {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private long id;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String middleName;
 
     public Client() {
