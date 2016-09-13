@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ru.mrchebik.data.ClientRepository;
 import ru.mrchebik.data.TelephoneNumberRepository;
 import ru.mrchebik.model.Client;
+import ru.mrchebik.model.FullClient;
 import ru.mrchebik.model.TelephoneNumber;
 
 import java.util.ArrayList;
@@ -41,9 +42,19 @@ public class Controller {
     public String page(Model model) {
         List<Client> clients = new ArrayList<>(clientRepository.findClients());
         List<TelephoneNumber> numbers = new ArrayList<>(telephoneNumberRepository.findTelephoneNumbers());
+        List<FullClient> fullClients = new ArrayList<>();
 
-        model.addAttribute("clients", clients);
-        model.addAttribute("numbers", numbers);
+        for (int i = 0; i < clients.size(); i++) {
+            long id = clients.get(i).getId();
+            String name = clients.get(i).getLastName() + " " + clients.get(i).getFirstName() + " " + clients.get(i).getMiddleName();
+            String number = numbers.get(i).getNumber();
+            String type = numbers.get(i).getType();
+            String comment = numbers.get(i).getComment();
+
+            fullClients.add(new FullClient(id, name, number, type, comment));
+        }
+
+        model.addAttribute("fullClients", fullClients);
 
         return "page";
     }

@@ -1,6 +1,3 @@
-<%@ page import="ru.mrchebik.model.Client" %>
-<%@ page import="java.util.List" %>
-<%@ page import="ru.mrchebik.model.TelephoneNumber" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -27,26 +24,24 @@
             <th>Тип</th>
             <th>Комментарий</th>
         </tr>
-        <% List<Client> clients = (List) request.getAttribute("clients");
-            List<TelephoneNumber> numbers = (List) request.getAttribute("numbers");
-            for (int i = 0; i < clients.size(); i++) { %>
+        <c:forEach items="${fullClients}" var="client" >
             <tr>
-                <td><%= clients.get(i).getLastName() %> <%= clients.get(i).getFirstName() %> <%= clients.get(i).getMiddleName() %></td>
-                <td><span id="<%= i %>" name="number" onclick="change(this.id, this.attributes['name'].value)"><%= numbers.get(i).getNumber() %></span>
-                    <input class="numberInput" id="number<%= i %>" type="text">
+                <td>${client.name}</td>
+                <td><span id="${client.id}" name="number" onclick="change(this.id, this.attributes['name'].value)">${client.number}</span>
+                    <input class="numberInput" id="number${client.id}" type="text">
                 </td>
-                <td><span id="<%= i %>" name="type" onclick="change(this.id, this.attributes['name'].value)"><%= numbers.get(i).getType() %></span>
-                    <select class="typeList" id="type<%= i %>">
+                <td><span id="${client.id}" name="type" onclick="change(this.id, this.attributes['name'].value)">${client.type}</span>
+                    <select class="typeList" id="type${client.id}">
                         <option>Домашний</option>
                         <option>Мобильный</option>
                         <option>Нет сведений</option>
                     </select>
                 </td>
-                <td><span id="<%= i %>" name="comment" onclick="change(this.id, this.attributes['name'].value)"><%= numbers.get(i).getComment() %></span>
-                    <input class="commentInput" id="comment<%= i %>" type="text">
+                <td><span id="${client.id}" name="comment" onclick="change(this.id, this.attributes['name'].value)">${client.comment}</span>
+                    <input class="commentInput" id="comment${client.id}" type="text">
                 </td>
             </tr>
-        <% } %>
+        </c:forEach>
     </table>
 </div>
 </body>
