@@ -28,13 +28,13 @@ function change(id, name) {
                             if ($(this).val() == '') {
                                 $(this).val("Нет комментария");
                             }
-                            sendData(this, name, id, i);
+                            sendData(this, name, id);
                         }
                     }
                 })
             } else if (name == 'type') {
                 $("select[id = " + name + id + "]").change(function () {
-                    sendData(this, name, id, i);
+                    sendData(this, name, id);
                 })
             }
             break;
@@ -42,16 +42,37 @@ function change(id, name) {
     }
 }
 
-function sendData(element, name, id, i) {
+function sendData(element, name, id) {
+    var data;
+    if (name == 'number') {
+        data = {
+            id: id,
+            number: $(element).val(),
+            type: $("span[name = 'type'][id = '" + id + "']")[0].textContent,
+            comment: $("span[name = 'comment'][id = '" + id + "']")[0].textContent
+        }
+    } else if (name == 'type') {
+        data = {
+            id: id,
+            number: $("span[name = 'number'][id = '" + id + "']")[0].textContent,
+            type: $(element).val(),
+            comment: $("span[name = 'comment'][id = '" + id + "']")[0].textContent
+        }
+    } else {
+        data = {
+            id: id,
+            number: $("span[name = 'number'][id = '" + id + "']")[0].textContent,
+            type: $("span[name = 'type'][id = '" + id + "']")[0].textContent,
+            comment: $(element).val()
+        }
+    }
+
+
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
         url: "/test/page",
-        data: JSON.stringify({
-            type: name,
-            data: $(element).val(),
-            id: i + 1
-        }),
+        data: JSON.stringify(data),
         success: function (data) {
             if (data == 'OK') {
                 var types = document.getElementsByName(name);

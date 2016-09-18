@@ -1,7 +1,5 @@
 package ru.mrchebik.model;
 
-import org.hibernate.validator.NotNull;
-
 import javax.persistence.*;
 
 /**
@@ -28,6 +26,13 @@ public class TelephoneNumber {
     }
 
     public TelephoneNumber(final String number, final String type, final String comment) {
+        this.number = number;
+        this.type = type;
+        this.comment = comment;
+    }
+
+    public TelephoneNumber(final long id, final String number, final String type, final String comment) {
+        this.id = id;
         this.number = number;
         this.type = type;
         this.comment = comment;
