@@ -8,7 +8,5 @@ import java.util.List;
  * Created by mrchebik on 18.09.16.
  */
 public interface ClientService {
-
     List<Client> getAll();
-
 }
