@@ -40,7 +40,7 @@ public class Controller {
 
     @RequestMapping(value = "/page", method = GET)
     public String page(Model model) {
-        System.out.println(clientService.findClientsWherePhoneLike("+68").get(0).getLastName());
+        System.out.println(clientService.findClientsWherePhoneLike("+380 (52) 102-10-84").get(0).getLastName());
 
         List<Client> clients = new ArrayList<>(clientService.getAll());
         List<TelephoneNumber> telephoneNumbers = new ArrayList<>(telephoneNumberService.getAll());
