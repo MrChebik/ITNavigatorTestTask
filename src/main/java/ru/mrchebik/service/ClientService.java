@@ -9,6 +9,5 @@ import java.util.List;
  */
 public interface ClientService {
     List<Client> getAll();
-    @Deprecated
     List<Client> findClientsWherePhoneLike(String phone);
 }

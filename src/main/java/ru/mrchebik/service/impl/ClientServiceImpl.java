@@ -12,7 +12,6 @@ import ru.mrchebik.service.ClientService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -42,23 +41,21 @@ public class ClientServiceImpl implements ClientService {
         List<Client> result = new ArrayList<>();
 
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        //get id
+        //get telephones
         CriteriaQuery<TelephoneNumber> cq = cb.createQuery(TelephoneNumber.class);
         Root<TelephoneNumber> c = cq.from(TelephoneNumber.class);
 
-        cq.select(c.get("id")).where(cb.like(c.get("number"), phone));
+        cq.select(c).where(cb.like(c.get("number"), phone));
 
-        TypedQuery<TelephoneNumber> q = em.createQuery(cq);
-        List<TelephoneNumber> resultNumber = q.getResultList();
+        List<TelephoneNumber> resultTelephoneNumber = em.createQuery(cq).getResultList();
         //get client
-        for (int i = 0; i < resultNumber.size(); i++) {
+        for (int i = 0; i < resultTelephoneNumber.size(); i++) {
             CriteriaQuery<Client> query = cb.createQuery(Client.class);
-            Root<Client> root = cq.from(Client.class);
+            Root<Client> root = query.from(Client.class);
 
-            query.select(root).where(cb.equal(c.get("id"), resultNumber.get(i).getId()));
+            query.select(root).where(cb.equal(c.get("id"), resultTelephoneNumber.get(i).getId()));
 
-            TypedQuery<Client> typedQuery = em.createQuery(query);
-            List<Client> resultClient = typedQuery.getResultList();
+            List<Client> resultClient = em.createQuery(query).getResultList();
 
             result.add(resultClient.get(0));
         }
